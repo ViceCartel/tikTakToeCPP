@@ -20,7 +20,7 @@ void drawBoard()
   cout << "<================>\n";
 }
 
-void placeMarker(int slot)
+bool placeMarker(int slot)
 {
   int row = slot / 3;
   int col;
@@ -32,7 +32,12 @@ void placeMarker(int slot)
     col = (slot % 3) - 1;
   }
 
-  board[row][col] = current_marker;
+  if (board[row][col] != 'X' && board[row][col] != 'Y'){
+    board[row][col] = current_marker;
+    return true;
+  } else {
+    return false;
+  }
 }
 int winner()
 {
@@ -83,8 +88,17 @@ void game()
     cout << "It's player "<< current_player<< "'s turn. Enter your slot."<<endl;
     int slot;
     cin >> slot;
+    if (slot < 1 || slot > 9){
+      cout << "Invalid slot! Try Again!"<<endl;
+      i--;
+      continue;
+    }
 
-    placeMarker(slot);
+    if (!placeMarker(slot)) {
+      cout << "That slot is occupied! Try another slot!"<<endl;
+      i--;
+      continue;
+    }
 
     drawBoard();
 
