@@ -11,13 +11,13 @@ int current_player;
 
 void drawBoard()
 {
-  cout << "<================>\n";
-  cout <<"  "<<board[0][0]<<"  |  "<<board[0][1]<<"  |  "<<board[0][2]<<endl;
+  cout << "==================\n";
+  cout <<"|  "<<board[0][0]<<"  |  "<<board[0][1]<<"  |  "<<board[0][2]<<" | "<<endl;
   cout<<"-----------------\n";
-  cout <<"  "<<board[1][0]<<"  |  "<<board[1][1]<<"  |  "<<board[1][2]<<endl;
-  cout<<"-----------------\n";
-  cout <<"  "<<board[2][0]<<"  |  "<<board[2][1]<<"  |  "<<board[2][2]<<endl;
-  cout << "<================>\n";
+  cout <<"|  "<<board[1][0]<<"  |  "<<board[1][1]<<"  |  "<<board[1][2]<<" | "<<endl;
+  cout<<" ----------------\n";
+  cout <<"|  "<<board[2][0]<<"  |  "<<board[2][1]<<"  |  "<<board[2][2]<<" | "<<endl;
+  cout << "==================\n";
 }
 
 bool placeMarker(int slot)
@@ -32,7 +32,7 @@ bool placeMarker(int slot)
     col = (slot % 3) - 1;
   }
 
-  if (board[row][col] != 'X' && board[row][col] != 'Y'){
+  if (board[row][col] != 'X' && board[row][col] != 'O'){
     board[row][col] = current_marker;
     return true;
   } else {
@@ -57,7 +57,7 @@ int winner()
 void swap_player_and_marker()
 {
     if (current_marker == 'X' || current_marker == 'x') {
-      current_marker = 'Y';
+      current_marker = 'O';
     }
     else {
       current_marker = 'X';
@@ -72,7 +72,7 @@ void swap_player_and_marker()
 }
 void game()
 {
-  cout << "Player one, choose your marker : "<<endl;
+  cout << "\vPlayer one, choose your marker\n(marker)> ";
   char marker_p1;
   cin >> marker_p1;
 
@@ -85,17 +85,17 @@ void game()
 
   for (int i=0; i<9; i++)
   {
-    cout << "It's player "<< current_player<< "'s turn. Enter your slot."<<endl;
+    cout << "It's player "<< current_player<< "'s turn. Enter your slot.\n(slot)> ";
     int slot;
     cin >> slot;
     if (slot < 1 || slot > 9){
-      cout << "Invalid slot! Try Again!"<<endl;
+      cout << "\nInvalid slot! Try Again!\n"<<endl;
       i--;
       continue;
     }
 
     if (!placeMarker(slot)) {
-      cout << "That slot is occupied! Try another slot!"<<endl;
+      cout << "\nThat slot is occupied! Try another slot!\n"<<endl;
       i--;
       continue;
     }
@@ -115,5 +115,9 @@ void game()
 
 int main()
 {
+  cout<<"Tik.\n"
+        <<"\tTak..\n"
+          <<"\t\tToe...\n"
+        <<"\v\t(please choose between X or O as your marker.)"<<endl;
   game();
 }
